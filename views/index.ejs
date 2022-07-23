@@ -5,13 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat System</title>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <div id="chat">
+      <div id="chat_header">
+        <h2>Chat Application System</h2>
+      </div>
+      <div id="chat_box">
+        <div class="message">
+          <p class="user">Ahmed</p>
+          <p class="chat_message">Hello from Ahmed</p>
+        </div>
+      </div>
+      <div class="input_btn">
+        <input type="text" />
+        <button>Send</button>
+      </div>
+    </div>
+
     <script
       src="https://cdn.socket.io/4.5.0/socket.io.min.js"
       integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
       crossorigin="anonymous"
     ></script>
-    <h1>Chat Application System</h1>
   </body>
 </html>

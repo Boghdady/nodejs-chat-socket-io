@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #edeefd;
+  font-family: 'Cairo';
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#chat {
+  background-color: #667aff;
+  width: 50vw;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 50px 100px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+#chat #chat_header {
+  width: 100%;
+  text-align: left;
+  font-size: 2rem;
+  color: #e6e9ff;
+  background-color: #667aff;
+  font-weight: bold;
+  padding: 0 50px;
+  border-radius: 10px;
+}
+
+#chat #chat_box {
+  width: 100%;
+  height: 70%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+#chat #chat_box .message {
+  width: 30vw;
+  min-height: 5vh;
+  background-color: #b7bff6;
+  margin: 10px 50px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#chat #chat_box .message .user {
+  color: #5a70ff;
+}
+
+#chat .input_btn {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#chat .input_btn input {
+  width: 80%;
+  height: 50%;
+  background-color: #e6e9ff;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+}
+
+#chat .input_btn button {
+  padding: 9px 20px;
+  color: #5a70ff;
+  background-color: #e6e9ff;
+  border: none;
+  margin-left: 10px;
+}
