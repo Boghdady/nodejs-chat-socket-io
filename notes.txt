@@ -1,0 +1,50 @@
+= Socket.IO
+is a library that enables real-time, bidirectional and event-based communication between a client and server. it's built on top of the websocker protocol.
+
+= WebSocket: 
+-WebSocket is bidirectional, a full-duplex protocol that used in the same scenario of client-server communication, unlike HTTP protocol it starts from ws:// or wss:// . It is stateful protocol, which means the connection between client and server will keep alive until it is terminated by either party (client or server). After closing the connection by either of client and server, the connection is terminated from both ends.
+
+= How WebSocket Works ? 
+1- Cleint sends a reqular Http request with an additional header to be requested.
+2- Server get the request and notice the request for the upgrade header. this lets the server knows that we are requesting for websocket connection.
+3- so server and client make a Handshake, if all goes well persistent connection between server and client.
+4- connnection can be closed either by client and server. 
+
+
+
+= What we can build using websockets?
+1- Chat Application
+2- Real time web application
+3- Notifications Systems
+4- Trading
+
+= How Setup Socket.io on Server ?
+1- First import http module
+const http = require('http');
+
+2- Create server using http module and pass the express "app"
+const server = http.createServer(app);
+
+3- Import socket.io module and pass the server to socket.io
+const io = require('socket.io')(server);
+
+
+= How chat application works?
+1- User sends message using "Socket.emit(EventName, Data)"
+2- Server on getting the message 
+3- The server sends it to the other users
+
+= Socket.Emit(EventName, Data)
+Socket.Emit sends the event to the server with data. server perform according to event.
+eventName => can be any thing
+
+= Socket.On(EventName, function)
+-Used for handling events, events can be built in events or the events that comes from the socket.emit method. 
+eventName => can't be any thing
+
+
+
+
+
+
+

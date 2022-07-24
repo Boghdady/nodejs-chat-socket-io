@@ -14,6 +14,14 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+io.on('connection', (socket) => {
+  // on: receive data from client
+  socket.on('btnData', (data) => {
+    // emit: send data to client
+    socket.emit('serverEvent', 'data from the server');
+  });
+});
+
 server.listen(port, () => {
   console.log(`Server running at: http://localhost:${port}`);
 });

@@ -29,5 +29,19 @@
       integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      const socket = io('http://localhost:3000');
+      const btn = document.querySelector('button');
+      const message = document.getElementsByClassName('chat_message');
+      btn.onclick = () => {
+        socket.emit('btnData', 'btn data on click');
+      };
+
+      socket.on('serverEvent', (data) => {
+        console.log(data);
+        // message.innerHTML = data;
+      });
+    </script>
   </body>
 </html>
