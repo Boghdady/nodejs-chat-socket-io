@@ -10,9 +10,11 @@ const socket = io('http://localhost:3000');
 const username = prompt('username');
 
 // Emitting or sending data to the server
-socket.emit('client_username_event', username);
-socket.on('server_username_event', (username) => {
-  console.log(username);
+socket.emit('client_join_event', username);
+
+// Handling events that comes from the server
+socket.on('server_join_event', (username) => {
+  displayMessage(username, `${username} joined to chat`);
 });
 
 function displayMessage(user, msg) {

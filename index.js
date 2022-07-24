@@ -14,9 +14,12 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
+const users = {};
 io.on('connection', (socket) => {
-  socket.on('client_username_event', (username) => {
-    socket.emit('server_username_event', `My name is ${username}`);
+  socket.on('client_join_event', (username) => {
+    users[socket.id] = username;
+    console.log(users);
+    socket.broadcast.emit('server_join_event', username);
   });
 });
 

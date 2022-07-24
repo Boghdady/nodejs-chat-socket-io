@@ -43,6 +43,11 @@ eventName => can be any thing
 eventName => can't be any thing
 
 
+= What does Socket.Broadcast.Emit(EventName, data)
+-Sending data  to the other users that connected to socket server
+
+
+
 
 
 
