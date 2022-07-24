@@ -3,7 +3,7 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
-// serve static files
+// serve static files (css/images)
 app.use(express.static('public'));
 // serve template engine
 app.set('view engine', 'ejs');
@@ -15,10 +15,8 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  // on: receive data from client
-  socket.on('btnData', (data) => {
-    // emit: send data to client
-    socket.emit('serverEvent', 'data from the server');
+  socket.on('client_username_event', (username) => {
+    socket.emit('server_username_event', `My name is ${username}`);
   });
 });
 
