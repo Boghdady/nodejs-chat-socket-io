@@ -21,6 +21,13 @@ io.on('connection', (socket) => {
     console.log(users);
     socket.broadcast.emit('server_join_event', username);
   });
+
+  socket.on('client_chat_message', (message) => {
+    socket.broadcast.emit('server_chat_message', {
+      username: users[socket.id],
+      message,
+    });
+  });
 });
 
 server.listen(port, () => {
