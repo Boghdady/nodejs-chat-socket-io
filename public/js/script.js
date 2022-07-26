@@ -29,16 +29,20 @@ button.addEventListener('click', () => {
     alert('Please type a message');
   } else {
     socket.emit('client_chat_message', input.value);
-
     // to show my message
     displayMessage(username, input.value);
+    // autoScroll on receive message
+    chatBox.scrollTop = chatBox.scrollHeight;
+    input.value = '';
   }
 });
 
 // Handling chat message event
 socket.on('server_chat_message', async (data) => {
   displayMessage(data.username, data.message);
+  // autoScroll on receive message
   await audio.play();
+  chatBox.scrollTop = chatBox.scrollHeight;
 });
 
 socket.on('server_left_chat', (data) => {
