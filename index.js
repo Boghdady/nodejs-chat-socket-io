@@ -15,18 +15,30 @@ app.get('/', (req, res) => {
 });
 
 const users = {};
+
 io.on('connection', (socket) => {
+  // 1. User joined to chat
   socket.on('client_join_event', (username) => {
     users[socket.id] = username;
-    console.log(users);
     socket.broadcast.emit('server_join_event', username);
   });
 
+  // 2. User send message to chatroom
   socket.on('client_chat_message', (message) => {
     socket.broadcast.emit('server_chat_message', {
       username: users[socket.id],
       message,
     });
+  });
+
+  // 3. User left the chat
+  socket.on('disconnect', () => {
+    socket.broadcast.emit('server_left_chat', {
+      username: users[socket.id],
+      message: `${users[socket.id]} left the chatroom`,
+    });
+    // delete username
+    delete users[socket.id];
   });
 });
 
