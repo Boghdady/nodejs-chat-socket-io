@@ -1,5 +1,7 @@
 const socket = io('http://localhost:3000');
 
+const audio = new Audio('ring.mp3');
+
 // selecting elements
 const chatBox = document.querySelector('#chat_box');
 const input = document.querySelector('input');
@@ -34,8 +36,9 @@ button.addEventListener('click', () => {
 });
 
 // Handling chat message event
-socket.on('server_chat_message', (data) => {
+socket.on('server_chat_message', async (data) => {
   displayMessage(data.username, data.message);
+  await audio.play();
 });
 
 socket.on('server_left_chat', (data) => {
