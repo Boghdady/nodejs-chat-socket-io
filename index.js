@@ -19,6 +19,9 @@ const users = {};
 io.on('connection', (socket) => {
   // 1. User joined to chat
   socket.on('client_join_event', (username) => {
+    if (!username) {
+      return;
+    }
     users[socket.id] = username;
     socket.broadcast.emit('server_join_event', username);
   });
@@ -33,6 +36,9 @@ io.on('connection', (socket) => {
 
   // 3. User left the chat
   socket.on('disconnect', () => {
+    if (!users[socket.id]) {
+      return;
+    }
     socket.broadcast.emit('server_left_chat', {
       username: users[socket.id],
       message: `${users[socket.id]} left the chatroom`,

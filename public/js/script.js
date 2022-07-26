@@ -1,7 +1,6 @@
 const socket = io('http://localhost:3000');
 
 const audio = new Audio('ring.mp3');
-
 // selecting elements
 const chatBox = document.querySelector('#chat_box');
 const input = document.querySelector('input');
@@ -19,8 +18,9 @@ const username = prompt('username');
 socket.emit('client_join_event', username);
 
 // Handling events that comes from the server
-socket.on('server_join_event', (username) => {
+socket.on('server_join_event', async (username) => {
   displayMessage(username, `${username} joined to chat`);
+  await audio.play();
 });
 
 // send chat message event to the server

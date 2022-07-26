@@ -52,7 +52,7 @@ body {
 
 #chat #chat_box .message {
   width: 30vw;
-  min-height: 5vh;
+  /* min-height: 5vh; */
   background-color: #b7bff6;
   margin: 10px 50px;
   padding: 10px;
