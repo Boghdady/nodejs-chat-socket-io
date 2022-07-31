@@ -33,6 +33,20 @@ io.on('connection', (socket) => {
       message: chatMessage,
     });
   });
+
+  // disconnect
+  socket.on('disconnect', () => {
+    const username = users[socket.id].username;
+    const room = users[socket.id].room;
+
+    socket.to(room).emit('server_left_chat', {
+      username,
+      message: `${username} leaves that ${room} chatroom`,
+    });
+
+    console.log(username, room);
+    // delete users[socket.id];
+  });
 });
 
 const port = process.env.PORT || 3000;

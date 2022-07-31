@@ -31,6 +31,12 @@ socket.on('server_chat_message', ({ username, message }) => {
   displayMessage(username, message);
 });
 
+// handle user left chat event
+socket.on('server_left_chat', ({ username, message }) => {
+  console.log(username, message);
+  displayMessage(username, message);
+});
+
 // display chat message
 function displayMessage(username, msg) {
   const div = document.createElement('div');
