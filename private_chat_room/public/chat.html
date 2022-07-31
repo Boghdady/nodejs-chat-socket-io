@@ -3,13 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum"
-    />
-    <title>ChatRoom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat System</title>
+    <link rel="stylesheet" href="css/chat.css" />
   </head>
   <body>
-    <h1>Chat.html page</h1>
+    <div id="chat">
+      <div id="chat_header">
+        <h2>Chat Room</h2>
+        <a href="/">Leave</a>
+      </div>
+      <div id="chat_box"></div>
+      <div class="input_btn">
+        <input type="text" />
+        <button>Send</button>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.socket.io/4.5.0/socket.io.min.js"
+      integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="js/script.js"></script>
   </body>
 </html>

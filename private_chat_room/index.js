@@ -5,6 +5,7 @@ const io = require('socket.io')(server);
 
 //  server static files
 app.use(express.static('public'));
+
 // serve template engine
 app.set('view engine', 'ejs');
 
