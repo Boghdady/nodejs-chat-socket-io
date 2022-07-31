@@ -5,17 +5,29 @@ socket.on('connect', () => {
 
 // Select elements
 const chatBox = document.querySelector('#chat_box');
+const input = document.querySelector('input');
+const button = document.querySelector('button');
 
 // getting query string
 const url = new URL(location.href);
 const username = url.searchParams.get('username');
 const room = url.searchParams.get('room');
 
+button.addEventListener('click', () => {
+  socket.emit('client_chat_message', input.value);
+  input.value = '';
+});
+
 // send join event to server
 socket.emit('client_join', { username, room });
 
 // handle join event
 socket.on('server_join', ({ username, message }) => {
+  displayMessage(username, message);
+});
+
+// handling chat message event
+socket.on('server_chat_message', ({ username, message }) => {
   displayMessage(username, message);
 });
 
