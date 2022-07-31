@@ -14,7 +14,15 @@ io.on('connection', (socket) => {
   socket.on('client_join', (userData) => {
     users[socket.id] = userData;
     console.log(users);
+    // user joined to specific room
     socket.join(userData.room);
+    // send joined message to specific chat room
+    // we using io instead of socket to appear join message in the current open session in the browser
+    // io send the event also the the user who send the event
+    io.to(userData.room).emit('server_join', {
+      username: userData.username,
+      message: `${userData.username} joined to ${userData.room} chatroom`,
+    });
   });
 });
 
