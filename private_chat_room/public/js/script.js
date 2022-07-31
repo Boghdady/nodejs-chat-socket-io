@@ -8,4 +8,4 @@ const url = new URL(location.href);
 const username = url.searchParams.get('username');
 const room = url.searchParams.get('room');
 
-console.log(username, room);
+socket.emit('client_join', { username, room });
