@@ -13,28 +13,33 @@ const url = new URL(location.href);
 const username = url.searchParams.get('username');
 const room = url.searchParams.get('room');
 
-button.addEventListener('click', () => {
-  socket.emit('client_chat_message', input.value);
-  input.value = '';
-});
-
 // send join event to server
 socket.emit('client_join', { username, room });
 
 // handle join event
 socket.on('server_join', ({ username, message }) => {
   displayMessage(username, message);
+  chatBox.scrollTop = chatBox.scrollHeight;
+});
+
+// send message event to server
+button.addEventListener('click', () => {
+  socket.emit('client_chat_message', input.value);
+  input.value = '';
+  chatBox.scrollTop = chatBox.scrollHeight;
 });
 
 // handling chat message event
 socket.on('server_chat_message', ({ username, message }) => {
   displayMessage(username, message);
+  chatBox.scrollTop = chatBox.scrollHeight;
 });
 
 // handle user left chat event
 socket.on('server_left_chat', ({ username, message }) => {
   console.log(username, message);
   displayMessage(username, message);
+  chatBox.scrollTop = chatBox.scrollHeight;
 });
 
 // display chat message

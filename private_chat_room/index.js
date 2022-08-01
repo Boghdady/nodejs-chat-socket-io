@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
     });
 
     console.log(username, room);
-    // delete users[socket.id];
+    delete users[socket.id];
   });
 });
 
