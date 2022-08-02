@@ -54,20 +54,42 @@ socket.on('server_full_room', () => {
 
 socket.on('server_ready', () => {
   if (isCreated) {
-    rtcPeerConnection = new RTCPeerConnection(iceServers);
-    rtcPeerConnection.onicecandidate = OnIceCandidateFunction;
-    // start video streaming on remote video
-    rtcPeerConnection.ontrack = onTrackFunction;
-    // sending media stream (audio,video) to other users on the chatroom
-    rtcPeerConnection.addTrack(userStream.getTracks()[0], userStream);
-    rtcPeerConnection.addTrack(userStream.getTracks()[1], userStream);
+    startPeerConnection();
     // send offer
     rtcPeerConnection.createOffer().then((offer) => {
       rtcPeerConnection.setLocalDescription(offer);
-      socket.emit('client_offer', offer);
+      socket.emit('client_offer', offer, room);
     });
   }
 });
+
+socket.on('server_offer', (offer) => {
+  if (!isCreated) {
+    startPeerConnection();
+    // send answer
+    rtcPeerConnection.createAnswer().then((answer) => {
+      rtcPeerConnection.setRemoteDescription(offer);
+      rtcPeerConnection.setLocalDescription(answer);
+      socket.emit('client_answer', answer, room);
+    });
+  }
+});
+
+socket.on('server_answer', (answer) => {
+  if (isCreated) {
+    rtcPeerConnection.setRemoteDescription(answer);
+  }
+});
+
+function startPeerConnection() {
+  rtcPeerConnection = new RTCPeerConnection(iceServers);
+  rtcPeerConnection.onicecandidate = OnIceCandidateFunction;
+  // start video streaming on remote video
+  rtcPeerConnection.ontrack = onTrackFunction;
+  // sending media stream (audio,video) to other users on the chatroom
+  rtcPeerConnection.addTrack(userStream.getTracks()[0], userStream);
+  rtcPeerConnection.addTrack(userStream.getTracks()[1], userStream);
+}
 
 function OnIceCandidateFunction(event) {
   if (event.candidate) {
