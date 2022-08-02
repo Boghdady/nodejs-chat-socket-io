@@ -24,6 +24,10 @@ io.on('connection', (socket) => {
     socket.on('client_ready', (roomName) => {
       socket.to(roomName).emit('server_ready');
     });
+
+    socket.on('client_offer', (offer, room) => {
+      socket.to(room).emit('server_offer', offer);
+    });
   });
 });
 
