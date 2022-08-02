@@ -7,6 +7,7 @@ const io = require('socket.io')(server);
 app.use(express.static('public'));
 
 io.on('connection', (socket) => {
+  // User join to room
   socket.on('client_join_room', (roomName) => {
     const rooms = io.sockets.adapter.rooms;
     const room = rooms.get(roomName);
@@ -20,6 +21,9 @@ io.on('connection', (socket) => {
     } else {
       socket.emit('server_full_room');
     }
+    socket.on('client_ready', (roomName) => {
+      socket.to(roomName).emit('server_ready');
+    });
   });
 });
 
@@ -27,3 +31,5 @@ const port = process.env.PORT || 3000;
 server.listen(port, () => {
   console.log(`Server running on: http://localhost:${port}`);
 });
+
+const name = process.env.PORT || 2000;

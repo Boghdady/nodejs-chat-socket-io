@@ -1,0 +1,12 @@
+{
+  "separators.enabledSymbols": [
+    "Classes",
+    "Constructors",
+    "Enums",
+    "Functions",
+    "Interfaces",
+    "Methods",
+    "Namespaces",
+    "Structs"
+  ]
+}
