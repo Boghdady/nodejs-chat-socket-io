@@ -32,6 +32,9 @@ io.on('connection', (socket) => {
     socket.on('client_answer', (answer, room) => {
       socket.to(room).emit('server_answer', answer);
     });
+    socket.on('candidate', (candidate, room) => {
+      socket.to(room).emit('candidate', candidate);
+    });
   });
 });
 

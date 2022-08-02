@@ -25,8 +25,9 @@ function accessAudioAndCamera() {
     .then((stream) => {
       userStream = stream;
       localVideo.srcObject = stream;
-      localVideo.onloadeddata = () => {
+      localVideo.onloadedmetadata = () => {
         localVideo.play();
+        socket.emit('client_join_room', room);
       };
     });
 }
@@ -34,8 +35,6 @@ function accessAudioAndCamera() {
 // accessing room name from url
 const url = new URL(location.href);
 const room = url.searchParams.get('room');
-
-socket.emit('client_join_room', room);
 
 socket.on('server_create_room', () => {
   isCreated = true;
@@ -67,8 +66,8 @@ socket.on('server_offer', (offer) => {
   if (!isCreated) {
     startPeerConnection();
     // send answer
+    rtcPeerConnection.setRemoteDescription(offer);
     rtcPeerConnection.createAnswer().then((answer) => {
-      rtcPeerConnection.setRemoteDescription(offer);
       rtcPeerConnection.setLocalDescription(answer);
       socket.emit('client_answer', answer, room);
     });
@@ -79,6 +78,11 @@ socket.on('server_answer', (answer) => {
   if (isCreated) {
     rtcPeerConnection.setRemoteDescription(answer);
   }
+});
+
+socket.on('candidate', (candidate) => {
+  const Candidate = new RTCIceCandidate(candidate);
+  rtcPeerConnection.addIceCandidate(Candidate);
 });
 
 function startPeerConnection() {
@@ -93,13 +97,13 @@ function startPeerConnection() {
 
 function OnIceCandidateFunction(event) {
   if (event.candidate) {
-    socket.emit('candidate', candidate, room);
+    socket.emit('candidate', event.candidate, room);
   }
 }
 
 function onTrackFunction(event) {
   remoteVideo.srcObject = event.streams[0];
-  remoteVideo.onloadeddata = () => {
+  remoteVideo.onloadedmetadata = () => {
     remoteVideo.play();
   };
 }
